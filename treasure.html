@@ -3,10 +3,7 @@
 <head>
     <title>Chaithanya Reddy Pailla Digs for Treasure</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            padding: 20px;
-        }
+    
         #locations, #score, #help {
             font-weight: bold;
         }
@@ -21,35 +18,32 @@
             padding: 20px;
         }
 
-        #gameField {
+        .game-container {
             display: flex;
             flex-direction: column;
-            gap: 5px;
             align-items: center;
             margin-top: 20px;
         }
-
-        .row {
-            display: flex;
+        .game-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 80px);
             gap: 5px;
         }
-
-        .cell {
-            width: 60px;
-            height: 60px;
+        .game-grid div {
+            width: 80px;
+            height: 80px;
             display: flex;
             align-items: center;
             justify-content: center;
-            background-color: #f4f4f4;
-            border: 1px solid #aaa;
+            border: 1px solid #ccc;
+            background-color: #f8f8f8;
+            cursor: pointer;
         }
-
-        img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
+        .game-grid img {
+            width: 70px;
+            height: 70px;
         }
-    </style>
+ </style>
 </head>
 <body>
 
