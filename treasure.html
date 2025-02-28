@@ -21,7 +21,34 @@
             padding: 20px;
         }
 
-       
+        #gameField {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .row {
+            display: flex;
+            gap: 5px;
+        }
+
+        .cell {
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #f4f4f4;
+            border: 1px solid #aaa;
+        }
+
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
     </style>
 </head>
 <body>
@@ -38,7 +65,54 @@
 
     <p>Click for help.</p>
 
-    
+    <div id="gameField">
+        <!-- 5 rows, each with 7 cells showing a cactus image -->
+        <div class="row">
+            <div class="cell"><img src="cactus.jpg"></div>
+            <div class="cell"><img src="cactus.jpg"></div>
+            <div class="cell"><img src="cactus.jpg"></div>
+            <div class="cell"><img src="cactus.jpg"></div>
+            <div class="cell"><img src="cactus.jpg"></div>
+            <div class="cell"><img src="cactus.jpg"></div>
+            <div class="cell"><img src="cactus.jpg"></div>
+        </div>
+        <div class="row">
+            <div class="cell"><img src="gold nugget.jpg"></div>
+            <div class="cell"><img src="gold nugget.jpg"></div>
+            <div class="cell"><img src="gold nugget.jpg"></div>
+            <div class="cell"><img src="gold nugget.jpg"></div>
+            <div class="cell"><img src="gold nugget.jpg"></div>
+            <div class="cell"><img src="gold nugget.jpg"></div>
+            <div class="cell"><img src="gold nugget.jpg"></div>
+        </div>
+        <div class="row">
+            <div class="cell"><img src="silver coin.jpg"></div>
+            <div class="cell"><img src="silver coin.jpg"></div>
+            <div class="cell"><img src="silver coin.jpg"></div>
+            <div class="cell"><img src="silver coin.jpg"></div>
+            <div class="cell"><img src="silver coin.jpg"></div>
+            <div class="cell"><img src="silver coin.jpg"></div>
+            <div class="cell"><img src="silver coin.jpg"></div>
+        </div>
+        <div class="row">
+            <div class="cell"><img src="snake.jpg"></div>
+            <div class="cell"><img src="snake.jpg"></div>
+            <div class="cell"><img src="snake.jpg"></div>
+            <div class="cell"><img src="snake.jpg"></div>
+            <div class="cell"><img src="snake.jpg"></div>
+            <div class="cell"><img src="snake.jpg"></div>
+            <div class="cell"><img src="snake.jpg"></div>
+        </div>
+        <div class="row">
+            <div class="cell"><img src="pottery.jpg"></div>
+            <div class="cell"><img src="pottery.jpg"></div>
+            <div class="cell"><img src="pottery.jpg"></div>
+            <div class="cell"><img src="pottery.jpg"></div>
+            <div class="cell"><img src="pottery.jpg"></div>
+            <div class="cell"><img src="pottery.jpg"></div>
+            <div class="cell"><img src="pottery.jpg"></div>
+        </div>
+    </div>
 
 </body>
 </html>
