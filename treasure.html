@@ -65,54 +65,24 @@
 
     <p>Click for help.</p>
 
-    <div id="gameField">
-        <!-- 5 rows, each with 7 cells showing a cactus image -->
-        <div class="row">
-            <div class="cell"><img src="cactus.jpg"></div>
-            <div class="cell"><img src="cactus.jpg"></div>
-            <div class="cell"><img src="cactus.jpg"></div>
-            <div class="cell"><img src="cactus.jpg"></div>
-            <div class="cell"><img src="cactus.jpg"></div>
-            <div class="cell"><img src="cactus.jpg"></div>
-            <div class="cell"><img src="cactus.jpg"></div>
-        </div>
-        <div class="row">
-            <div class="cell"><img src="gold nugget.jpg"></div>
-            <div class="cell"><img src="gold nugget.jpg"></div>
-            <div class="cell"><img src="gold nugget.jpg"></div>
-            <div class="cell"><img src="gold nugget.jpg"></div>
-            <div class="cell"><img src="gold nugget.jpg"></div>
-            <div class="cell"><img src="gold nugget.jpg"></div>
-            <div class="cell"><img src="gold nugget.jpg"></div>
-        </div>
-        <div class="row">
-            <div class="cell"><img src="silver coin.jpg"></div>
-            <div class="cell"><img src="silver coin.jpg"></div>
-            <div class="cell"><img src="silver coin.jpg"></div>
-            <div class="cell"><img src="silver coin.jpg"></div>
-            <div class="cell"><img src="silver coin.jpg"></div>
-            <div class="cell"><img src="silver coin.jpg"></div>
-            <div class="cell"><img src="silver coin.jpg"></div>
-        </div>
-        <div class="row">
-            <div class="cell"><img src="snake.jpg"></div>
-            <div class="cell"><img src="snake.jpg"></div>
-            <div class="cell"><img src="snake.jpg"></div>
-            <div class="cell"><img src="snake.jpg"></div>
-            <div class="cell"><img src="snake.jpg"></div>
-            <div class="cell"><img src="snake.jpg"></div>
-            <div class="cell"><img src="snake.jpg"></div>
-        </div>
-        <div class="row">
-            <div class="cell"><img src="pottery.jpg"></div>
-            <div class="cell"><img src="pottery.jpg"></div>
-            <div class="cell"><img src="pottery.jpg"></div>
-            <div class="cell"><img src="pottery.jpg"></div>
-            <div class="cell"><img src="pottery.jpg"></div>
-            <div class="cell"><img src="pottery.jpg"></div>
-            <div class="cell"><img src="pottery.jpg"></div>
+    <!-- Game Field -->
+    <div class="game-container">
+        <div class="game-grid">
+            <!-- Generate 5x7 grid with cactus images -->
+            <script>
+                const grid = document.querySelector('.game-grid');
+                for (let i = 0; i < 35; i++) {
+                    let cell = document.createElement('div');
+                    let img = document.createElement('img');
+                    img.src = "cactus.jpg"; // Cactus Image
+                    img.alt = "Cactus";
+                    cell.appendChild(img);
+                    grid.appendChild(cell);
+                }
+            </script>
         </div>
     </div>
+</div>
 
 </body>
 </html>
