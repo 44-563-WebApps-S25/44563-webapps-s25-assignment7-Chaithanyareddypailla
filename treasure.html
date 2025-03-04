@@ -91,16 +91,15 @@
 
 <h2>Treasure Hunt Game</h2>
 
-<!-- Display score and locations visited -->
-<p>Score: <span id="score">0</span></p>
-<p>Locations Visited: <span id="locationsVisited">0</span></p>
-
-<!-- Game grid where images will appear -->
 <div id="gameGrid"></div>
 
-<!-- Help button and result display -->
-<button id="help">Click for help</button>
-<p>Help Result: <span id="helpResult"></span></p>
+<div>
+    <span>Score: <span id="score">0</span></span>
+    <span>Locations Visited: <span id="locationsVisited">0</span></span>
+</div>
+
+<button id="helpButton">Click for help</button>
+<div id="help">Help result will appear here</div>
 
 
 <script>
@@ -169,22 +168,22 @@ function help() {
     ];
 
     if (neighbors.some(n => silverLocations.includes(n))) {
-        document.getElementById('helpResult').innerText = 'clink';
+        document.getElementById('help').innerText = 'clink';
         return;
     }
 
     const snakeRow = Math.floor(snakeLocation / 7);
     const snakeCol = snakeLocation % 7;
     if (Math.abs(row - snakeRow) <= 1 && Math.abs(col - snakeCol) <= 1) {
-        document.getElementById('helpResult').innerText = 'rattle';
+        document.getElementById('help').innerText = 'rattle';
         return;
     }
 
-    document.getElementById('helpResult').innerText = 'wind';
+    document.getElementById('help').innerText = 'wind';
 }
 
-// Step 14 - Connect help button to help function
-document.getElementById('help').onclick = help;
+// Hook up help button to the help() function
+document.getElementById('helpButton').onclick = help;
 </script>
 </body>
 </html>
