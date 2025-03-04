@@ -129,13 +129,13 @@ function check(position) {
         gameOver = true;
         score -= 3;  // j
     } else if (position === goldLocation) {
-        img.src = 'gold.jpg';
+        img.src = 'gold nugget.jpg';
         score += 5;  // g
     } else if (silverLocations.includes(position)) {
         img.src = 'silver.jpg';
         score += 3;  // f
     } else {
-        img.src = 'gold nugget.jpg';
+        img.src = 'pottery.jpg';
         score += 1;  // e
     }
 
