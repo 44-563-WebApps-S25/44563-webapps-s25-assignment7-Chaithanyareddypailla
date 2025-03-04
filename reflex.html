@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Chaithanya Reddy Pailla Reflexes</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f0f8ff;
+            padding: 20px;
+        }
+        div {
+            margin: 15px 0;
+            font-size: 20px;
+        }
+        button {
+            font-size: 18px;
+            margin: 10px;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Chaithanya Reddy Pailla Reflexes</h2>
+
+<div id="target">Your time: Not started</div>
+<div id="counter">Count: 10</div>
+
+<button id="goButton">Go</button>
+<button id="haltButton">Halt</button>
+
+<script>
+    let haltTime = undefined; // Step 5a - Initialize haltTime
+
+    // Function to record time when Halt is pressed
+    function recordTime() {
+        haltTime = Date.now();  // Get current time in milliseconds
+        console.log("Halt time recorded:", haltTime);
+    }
+
+    // Link recordTime() to the Halt button
+    document.getElementById("haltButton").onclick = recordTime;
+
+    // Confirm that the time gets logged in the console after clicking Halt.
+</script>
+
+</body>
+</html>
