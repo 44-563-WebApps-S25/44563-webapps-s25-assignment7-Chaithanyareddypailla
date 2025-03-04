@@ -111,7 +111,7 @@ const Grid = document.getElementById('gameGrid');
 for (let i = 0; i < 35; i++) {
     let img = document.createElement('img');
     img.id = 'img' + i;
-    img.src = 'pottery.png';
+    img.src = 'pottery.jpg';
     img.onclick = function () { check(i); };
     ids.push(img.id);
     grid.appendChild(img);
@@ -125,17 +125,17 @@ function check(position) {
 
     // d - Change image based on location
     if (position === snakeLocation) {
-        img.src = 'snake.png';
+        img.src = 'snake.jpg';
         gameOver = true;
         score -= 3;  // j
     } else if (position === goldLocation) {
-        img.src = 'gold.png';
+        img.src = 'gold.jpg';
         score += 5;  // g
     } else if (silverLocations.includes(position)) {
-        img.src = 'silver.png';
+        img.src = 'silver.jpg';
         score += 3;  // f
     } else {
-        img.src = 'pottery.png';
+        img.src = 'gold nugget.jpg';
         score += 1;  // e
     }
 
