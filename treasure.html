@@ -70,22 +70,12 @@
 
     <p>Click for help.</p>
 
-  
-<h2>Treasure Hunt Game</h2>
-
-<div id="gameGrid"></div>
-
-<div>
-    <span>Score: <span id="score">0</span></span>
-    <span>Locations Visited: <span id="locationsVisited">0</span></span>
-</div>
-
-<button id="helpButton">Click for help</button>
-<div id="help">Help result will appear here</div>
-
-
-<script>
- // Step 1 & 2: Create grid and assign images with unique ids and onclick
+    <!-- Game Field -->
+    <div class="game-container">
+        <div class="game-grid">
+            <!-- Generate 5x7 grid with cactus images -->
+            <script>
+                // Step 1 & 2: Create grid and assign images with unique ids and onclick
 const rid = document.getElementById('gameGrid');
 let ids = [];
 
@@ -166,6 +156,22 @@ function help() {
     }
 
     document.getElementById('helpButton').onclick = help;
-</script>
+            </script>
+        </div>
+    </div>
+</div>
+
+<h2>Treasure Hunt Game</h2>
+
+<div id="gameGrid"></div>
+
+<div>
+    <span>Score: <span id="score">0</span></span>
+    <span>Locations Visited: <span id="locationsVisited">0</span></span>
+</div>
+
+<button id="helpButton">Click for help</button>
+<div id="help">Help result will appear here</div>
+
 </body>
 </html>
