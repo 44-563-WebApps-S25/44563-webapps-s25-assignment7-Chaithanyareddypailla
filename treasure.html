@@ -156,9 +156,9 @@ function check(position) {
     document.getElementById('locationsVisited').innerText = locationsVisited;
 }
 
-let LastLocation = 13; // Example starting value, this will change in your game
-let SnakeLocation = 26;
-let SilverLocations = [2, 21, 31]; // Example silver locations, adjust for your case
+lastLocation = 13; // Example starting value, this will change in your game
+snakeLocation = 26;
+silverLocations = [2, 21, 31]; // Example silver locations, adjust for your case
 
 function help() {
     const cols = 5;
@@ -199,6 +199,7 @@ function help() {
     // Default to wind
     document.getElementById("help").innerText = "wind";
     return "wind";
+    
 }
 </script>
 </body>
