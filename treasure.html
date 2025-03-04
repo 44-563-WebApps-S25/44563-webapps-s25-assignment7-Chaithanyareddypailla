@@ -60,8 +60,6 @@
 
     <h1>Chaithanya Reddy Pailla Digs for Treasure</h1>
 
-    <h2>Treasure Hunt Game</h2>
-
     <p>Click on the locations to find silver and gold, watch out for the rattlesnake.</p>
 
     <p id="locations">Number of locations checked is zero.</p>
@@ -70,103 +68,122 @@
 
     <p id="help">Help report will show here.</p>
 
+    <p>Click for help.</p>
+
     <!-- Game Field -->
-    <h2>Treasure Hunt Game</h2>
-    <script>
-        // Step 1 & 2: Create grid and assign images with unique ids and onclick
-       const rid = document.getElementById('gameGrid');
-       let ids = [];
-       
-       for (let i = 0; i < 35; i++) {
-           let img = document.createElement('img');
-           img.id = 'img' + i;
-           img.src = 'pottery.jpg';  // Default image
-           img.onclick = function () { check(i); };
-           ids.push(img.id);
-           grid.appendChild(img);
-       }
-       
-       // Step 5 - Game variables
-       let score = 0;
-       let locationsVisited = 0;
-       let lastLocation = 0;  // Last clicked location
-       let silverLocations = [2, 5, 11, 21, 32];  // Silver coin locations
-       let goldLocation = 15;                      // Gold location
-       let snakeLocation = 20;                      // Snake location
-       let gameOver = false;                        // Flag to end game if snake found
-       
-       // Step 12 - Check function to handle clicks
-       function check(position) {
-           if (gameOver) return;  // Stop if game ended
-       
-           let img = document.getElementById(ids[position]);
-       
-           if (position === snakeLocation) {
-               img.src = 'snake.jpg';
-               gameOver = true;
-               score -= 3;  // Snake penalty
-           } else if (position === goldLocation) {
-               img.src = 'gold nugget.jpg';
-               score += 5;  // Gold reward
-           } else if (silverLocations.includes(position)) {
-               img.src = 'silver coin.jpg';
-               score += 3;  // Silver reward
-           } else {
-               img.src = 'pottery.jpg';
-               score += 1;  // Normal spot
-           }
-       
-           locationsVisited++;
-           img.title = 'Visited';
-           lastLocation = position;  // Track last location clicked
-       
-           // Update display
-           document.getElementById('score').innerText = score;
-           document.getElementById('locationsVisited').innerText = locationsVisited;
-       }
-       
-       // Step 13 - Help function logic (check surrounding neighbors)
-       function help() {
-           const row = Math.floor(lastLocation / 7);
-           const col = lastLocation % 7;
-       
-           const neighbors = [
-               (lastLocation - 7 + 35) % 35,  // Above (wrap around)
-               (lastLocation + 7) % 35,       // Below (wrap around)
-               (col === 0) ? lastLocation + 6 : lastLocation - 1,  // Left (wrap)
-               (col === 6) ? lastLocation - 6 : lastLocation + 1   // Right (wrap)
-           ];
-       
-           if (neighbors.some(n => silverLocations.includes(n))) {
-               document.getElementById('help').innerText = 'clink';
-               return;
-           }
-       
-           const snakeRow = Math.floor(snakeLocation / 7);
-           const snakeCol = snakeLocation % 7;
-           if (Math.abs(row - snakeRow) <= 1 && Math.abs(col - snakeCol) <= 1) {
-               document.getElementById('help').innerText = 'rattle';
-               return;
-           }
-       
-           document.getElementById('help').innerText = 'wind';
-       }
-       
-       // Hook up help button to the help() function
-       document.getElementById('helpButton').onclick = help;
-       </script>
-       
-
-    <div id="gameGrid"></div>
-    
-    <div>
-        <span>Score: <span id="score">0</span></span>
-        <span>Locations Visited: <span id="locationsVisited">0</span></span>
+    <div class="game-container">
+        <div class="game-grid">
+            <!-- Generate 5x7 grid with cactus images -->
+            <script>
+                const grid = document.querySelector('.game-grid');
+                for (let i = 0; i < 35; i++) {
+                    let cell = document.createElement('div');
+                    let img = document.createElement('img');
+                    img.src = "cactus.jpg"; // Cactus Image
+                    img.alt = "Cactus";
+                    cell.appendChild(img);
+                    grid.appendChild(cell);
+                }
+            </script>
+        </div>
     </div>
-    
-    <button id="helpButton">Click for help</button>
-    <div id="help">Help result will appear here</div>
-    
+</div>
 
+<h2>Treasure Hunt Game</h2>
+
+<div id="gameGrid"></div>
+
+<div>
+    <span>Score: <span id="score">0</span></span>
+    <span>Locations Visited: <span id="locationsVisited">0</span></span>
+</div>
+
+<button id="helpButton">Click for help</button>
+<div id="help">Help result will appear here</div>
+
+
+<script>
+ // Step 1 & 2: Create grid and assign images with unique ids and onclick
+const rid = document.getElementById('gameGrid');
+let ids = [];
+
+for (let i = 0; i < 35; i++) {
+    let img = document.createElement('img');
+    img.id = 'img' + i;
+    img.src = 'pottery.jpg';  // Default image
+    img.onclick = function () { check(i); };
+    ids.push(img.id);
+    grid.appendChild(img);
+}
+
+// Step 5 - Game variables
+let score = 0;
+let locationsVisited = 0;
+let lastLocation = 0;  // Last clicked location
+let silverLocations = [2, 5, 11, 21, 32];  // Silver coin locations
+let goldLocation = 15;                      // Gold location
+let snakeLocation = 20;                      // Snake location
+let gameOver = false;                        // Flag to end game if snake found
+
+// Step 12 - Check function to handle clicks
+function check(position) {
+    if (gameOver) return;  // Stop if game ended
+
+    let img = document.getElementById(ids[position]);
+
+    if (position === snakeLocation) {
+        img.src = 'snake.jpg';
+        gameOver = true;
+        score -= 3;  // Snake penalty
+    } else if (position === goldLocation) {
+        img.src = 'gold nugget.jpg';
+        score += 5;  // Gold reward
+    } else if (silverLocations.includes(position)) {
+        img.src = 'silver coin.jpg';
+        score += 3;  // Silver reward
+    } else {
+        img.src = 'pottery.jpg';
+        score += 1;  // Normal spot
+    }
+
+    locationsVisited++;
+    img.title = 'Visited';
+    lastLocation = position;  // Track last location clicked
+
+    // Update display
+    document.getElementById('score').innerText = score;
+    document.getElementById('locationsVisited').innerText = locationsVisited;
+}
+
+// Step 13 - Help function logic (check surrounding neighbors)
+function help() {
+        const row = Math.floor(lastLocation / 7);
+        const col = lastLocation % 7;
+
+        const neighbors = [
+            (lastLocation - 7 + 35) % 35,
+            (lastLocation + 7) % 35,
+            (col === 0) ? lastLocation + 6 : lastLocation - 1,
+            (col === 6) ? lastLocation - 6 : lastLocation + 1
+        ];
+
+        if (neighbors.some(n => silverLocations.includes(n))) {
+            document.getElementById('help').innerText = 'clink';
+            return;
+        }
+
+        const snakeRow = Math.floor(snakeLocation / 7);
+        const snakeCol = snakeLocation % 7;
+
+        if (Math.abs(row - snakeRow) <= 1 && Math.abs(col - snakeCol) <= 1) {
+            document.getElementById('help').innerText = 'rattle';
+            return;
+        }
+
+        document.getElementById('help').innerText = 'wind';
+    }
+
+    document.getElementById('helpButton').onclick = help;
+</script>
 </body>
 </html>
