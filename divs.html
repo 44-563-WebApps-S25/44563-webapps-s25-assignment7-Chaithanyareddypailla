@@ -42,8 +42,8 @@
 	<input type="text" id="inputText" placeholder="Enter item text">
 
 	<button onclick="addEnd()">Add end</button>
-	<button onclick="remove()">Remove</button>
 	<button onclick="promote()">Promote</button>
+	<button onclick="remove()">Remove</button>
 
 	<div class="flex-container" id="container">
 		<div class="divlist">Item 1</div>
@@ -65,6 +65,7 @@
 			const container = document.getElementById("container");
 			container.appendChild(newDiv);
 		}
+
 		function promote() {
 			const divListItems = document.getElementsByClassName("divlist");
 			if (divListItems.length < 2) {
@@ -84,7 +85,16 @@
 
 			container.insertBefore(itemToMove, itemBefore);
 		}
-		
+		function remove() {
+			const divListItems = document.getElementsByClassName("divlist");
+			if (divListItems.length === 0) {
+				alert("No items to remove!");
+				return;
+			}
+
+			const middleIndex = Math.floor(divListItems.length / 2);
+			divListItems[middleIndex].remove();
+		}
 	</script>
 
 </body>
