@@ -105,7 +105,7 @@
 
 <script>
  // Step 1 & 2: Create grid and assign images with unique ids and onclick
-const Grid = document.getElementById('gameGrid');
+const rid = document.getElementById('gameGrid');
 let ids = [];
 
 for (let i = 0; i < 35; i++) {
@@ -156,51 +156,35 @@ function check(position) {
     document.getElementById('locationsVisited').innerText = locationsVisited;
 }
 
-lastLocation = 13; // Example starting value, this will change in your game
-snakeLocation = 26;
-silverLocations = [2, 21, 31]; // Example silver locations, adjust for your case
-
+// Step 13 - Help function logic (check surrounding neighbors)
 function help() {
-    const cols = 5;
-    const rows = 7;
+    const row = Math.floor(lastLocation / 7);
+    const col = lastLocation % 7;
 
-    // Compute neighboring locations with wrap-around where necessary
     const neighbors = [
-        (lastLocation - 1 + (cols * rows)) % (cols * rows), // left
-        (lastLocation + 1) % (cols * rows),                  // right
-        (lastLocation - cols + (cols * rows)) % (cols * rows), // above
-        (lastLocation + cols) % (cols * rows)                  // below
+        (lastLocation - 7 + 35) % 35,  // Above (wrap around)
+        (lastLocation + 7) % 35,       // Below (wrap around)
+        (col === 0) ? lastLocation + 6 : lastLocation - 1,  // Left (wrap)
+        (col === 6) ? lastLocation - 6 : lastLocation + 1   // Right (wrap)
     ];
 
-    // Check if any neighbor is in silverLocations
-    for (let i = 0; i < neighbors.length; i++) {
-        if (silverLocations.includes(neighbors[i])) {
-            document.getElementById("help").innerText = "clink";
-            return "clink";
-        }
+    if (neighbors.some(n => silverLocations.includes(n))) {
+        document.getElementById('helpResult').innerText = 'clink';
+        return;
     }
 
-    // Compute row and column for both last location and snake
-    const lastRow = Math.floor(lastLocation / cols);
-    const lastCol = lastLocation % cols;
-
-    const snakeRow = Math.floor(snakeLocation / cols);
-    const snakeCol = snakeLocation % cols;
-
-    // Check if snake is adjacent
-    const rowDiff = Math.abs(lastRow - snakeRow);
-    const colDiff = Math.abs(lastCol - snakeCol);
-
-    if (rowDiff <= 1 && colDiff <= 1) {
-        document.getElementById("help").innerText = "rattle";
-        return "rattle";
+    const snakeRow = Math.floor(snakeLocation / 7);
+    const snakeCol = snakeLocation % 7;
+    if (Math.abs(row - snakeRow) <= 1 && Math.abs(col - snakeCol) <= 1) {
+        document.getElementById('helpResult').innerText = 'rattle';
+        return;
     }
 
-    // Default to wind
-    document.getElementById("help").innerText = "wind";
-    return "wind";
-    
+    document.getElementById('helpResult').innerText = 'wind';
 }
+
+// Step 14 - Connect help button to help function
+document.getElementById('help').onclick = help;
 </script>
 </body>
 </html>
