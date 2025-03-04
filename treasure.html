@@ -97,7 +97,7 @@
 <p>Help: <span id="help">Click for help</span></p>
 
 <script>
-   // Part 4: Making the game operational
+ // Part 4: Making the game operational
 
 // Step 1 & 2 - Give each of the 35 images a unique id and onclick property
 const Grid = document.getElementById('gameGrid');
@@ -155,26 +155,28 @@ function check(position) {
     document.getElementById('locationsVisited').innerText = locationsVisited;
 }
 
-// Step 13 - Define the help function
+// Step 13 - Define the help() function
+// Explanation: The help function checks the surroundings of the last clicked position. 
+// It returns "clink" if a silver coin is nearby, "rattle" if the snake is nearby, and "wind" if nothing is nearby. 
+// We assume a 5x7 grid where each location wraps to the opposite side when needed.
 function help() {
     const row = Math.floor(lastLocation / 7);
     const col = lastLocation % 7;
 
-    // Neighbors (wrap-around handling)
     const neighbors = [
-        (lastLocation - 7 + 35) % 35,  // Above
-        (lastLocation + 7) % 35,       // Below
-        (lastLocation % 7 === 0) ? lastLocation + 6 : lastLocation - 1,  // Left (wrap)
-        (lastLocation % 7 === 6) ? lastLocation - 6 : lastLocation + 1   // Right (wrap)
+        (lastLocation - 7 + 35) % 35,  // Above (wrap around)
+        (lastLocation + 7) % 35,       // Below (wrap around)
+        (lastLocation % 7 === 0) ? lastLocation + 6 : lastLocation - 1,  // Left (wrap around)
+        (lastLocation % 7 === 6) ? lastLocation - 6 : lastLocation + 1   // Right (wrap around)
     ];
 
-    // Check for clink - nearby silver
+    // Check for "clink" - silver coin is nearby
     if (neighbors.some(n => silverLocations.includes(n))) {
         document.getElementById('help').innerText = 'clink';
         return;
     }
 
-    // Check for rattle - adjacent to snake
+    // Check for "rattle" - snake is nearby
     const snakeRow = Math.floor(snakeLocation / 7);
     const snakeCol = snakeLocation % 7;
     if (Math.abs(row - snakeRow) <= 1 && Math.abs(col - snakeCol) <= 1) {
@@ -182,7 +184,7 @@ function help() {
         return;
     }
 
-    // Default to wind if no clues found
+    // Default case - nothing nearby
     document.getElementById('help').innerText = 'wind';
 }
 
