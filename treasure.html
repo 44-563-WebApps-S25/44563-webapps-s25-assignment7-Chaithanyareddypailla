@@ -97,59 +97,60 @@
 <p>Help: <span id="help">Click for help</span></p>
 
 <script>
-    // Step 4 declarations
-let ids = [];
-let score = 0;
-let locationsVisited = 0;
-let lastLocation = 0;
-let silverLocations = [2, 5, 11, 21, 32];
-let goldLocation = 15;
-let snakeLocation = 20;
-let gameOver = false;
+   // Part 4: Making the game operational
 
-// Step 1 & 2 - Create 35 images with unique ids and onclick handlers
+// Step 1 & 2 - Give each of the 35 images a unique id and onclick property
 const Grid = document.getElementById('gameGrid');
+let ids = []; // Step 4
 
 for (let i = 0; i < 35; i++) {
     let img = document.createElement('img');
     img.id = 'img' + i;
     img.src = 'pottery.jpg';
-    img.onclick = function () { check(i); };
+    img.onclick = function () { check(i); };  // Each image has onclick="check(x)"
     ids.push(img.id);
     grid.appendChild(img);
 }
 
-// Step 12 - Define the check function
+// Step 5 to Step 11 - Declare variables
+let score = 0;
+let locationsVisited = 0;
+let lastLocation = 0;
+let silverLocations = [2, 5, 11, 21, 32];  // Step 7
+let goldLocation = 15;                      // Step 8
+let snakeLocation = 20;                      // Step 9
+let gameOver = false;                        // Step 10
+
+// Step 12 - Define the function check(position)
 function check(position) {
-    if (gameOver) return;  // a
+    if (gameOver) {
+        return;  // a - Do nothing if game is over
+    }
 
-    let img = document.getElementById(ids[position]);  // b, c
+    let img = document.getElementById(ids[position]);  // b - Get image element
 
-    // d - Change image based on location
+    // c - Change image source based on what is found at this location
     if (position === snakeLocation) {
         img.src = 'snake.jpg';
         gameOver = true;
-        score -= 3;  // j
+        score -= 3;  // j - Subtract 3 from score if snake is found
     } else if (position === goldLocation) {
         img.src = 'gold nugget.jpg';
-        score += 5;  // g
+        score += 5;  // g - Add 5 for gold
     } else if (silverLocations.includes(position)) {
         img.src = 'silver coin.jpg';
-        score += 3;  // f
+        score += 3;  // f - Add 3 for silver
     } else {
         img.src = 'pottery.jpg';
-        score += 1;  // e
+        score += 1;  // e - Add 1 for regular pottery
     }
 
-    // h - Increment locationsVisited
-    locationsVisited++;
+    locationsVisited++;  // h - Increment locationsVisited
+    img.title = 'Visited';  // i - Feedback (optional)
 
-    // i - Update image text (optional feedback)
-    img.title = `Visited`;
+    lastLocation = position;  // k - Update lastCheck to current position
 
-    lastLocation = position;  // k
-
-    // Update score and locations on page
+    // Update page with score and locations visited
     document.getElementById('score').innerText = score;
     document.getElementById('locationsVisited').innerText = locationsVisited;
 }
@@ -159,32 +160,39 @@ function help() {
     const row = Math.floor(lastLocation / 7);
     const col = lastLocation % 7;
 
-    // Neighbors (wrap around if needed)
+    // Neighbors (wrap-around handling)
     const neighbors = [
-        (lastLocation - 7 + 35) % 35,  // above
-        (lastLocation + 7) % 35,       // below
-        (lastLocation - 1 + 7) % 7 + (row * 7),  // left (wrap row)
-        (lastLocation + 1) % 7 + (row * 7)       // right (wrap row)
+        (lastLocation - 7 + 35) % 35,  // Above
+        (lastLocation + 7) % 35,       // Below
+        (lastLocation % 7 === 0) ? lastLocation + 6 : lastLocation - 1,  // Left (wrap)
+        (lastLocation % 7 === 6) ? lastLocation - 6 : lastLocation + 1   // Right (wrap)
     ];
 
+    // Check for clink - nearby silver
     if (neighbors.some(n => silverLocations.includes(n))) {
         document.getElementById('help').innerText = 'clink';
         return;
     }
 
+    // Check for rattle - adjacent to snake
     const snakeRow = Math.floor(snakeLocation / 7);
     const snakeCol = snakeLocation % 7;
-
     if (Math.abs(row - snakeRow) <= 1 && Math.abs(col - snakeCol) <= 1) {
         document.getElementById('help').innerText = 'rattle';
         return;
     }
 
+    // Default to wind if no clues found
     document.getElementById('help').innerText = 'wind';
 }
 
-// Step 14 - Set onclick for help
+// Step 14 - Set help button onclick property
 document.getElementById('help').onclick = help;
+
+// Step 15 - Testing happens manually after game runs
+// Step 16 & 17 - Done after game works (feedback and screenshots)
+
+// Step 18 - Show on VSCode as required during documentation
 
 </script>
 
