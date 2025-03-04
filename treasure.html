@@ -89,12 +89,12 @@
     </div>
 </div>
 
-<div class="grid" id="gameGrid">
-    <!-- 35 images will be inserted via JS -->
+<div>
+    <p>Score: <span id="score">0</span></p>
+    <p>Locations Visited: <span id="locationsVisited">0</span></p>
 </div>
-<p>Score: <span id="score">0</span></p>
-<p>Locations Visited: <span id="locationsVisited">0</span></p>
-<p>Help: <span id="help">Click for help</span></p>
+<div id="gameGrid" style="display: grid; grid-template-columns: repeat(7, 50px); grid-gap: 5px;"></div>
+<button id="help">Get Help</button>
 
 <script>
  // Part 4: Making the game operational
