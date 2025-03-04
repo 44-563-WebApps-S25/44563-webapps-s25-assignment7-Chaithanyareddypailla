@@ -42,6 +42,17 @@
         .game-grid img {
             width: 70px;
             height: 70px;
+        
+            .grid {
+            display: grid;
+            grid-template-columns: repeat(7, 50px);
+            gap: 5px;
+        }
+        .grid img {
+            width: 50px;
+            height: 50px;
+            cursor: pointer;
+        }
         }
  </style>
 </head>
@@ -77,13 +88,15 @@
         </div>
     </div>
 </div>
-<h2>Game</h2>
+<div class="grid" id="gameGrid">
+    <!-- 35 images will be inserted via JS -->
+</div>
+<p>Score: <span id="score">0</span></p>
+<p>Locations Visited: <span id="locationsVisited">0</span></p>
+<p>Help: <span id="help">Click for help</span></p>
 <script>
-    let ids = [];
-for (let i = 0; i < 35; i++) {
-    ids.push("loc" + i);
-}
-
+    // Step 4 declarations
+let ids = [];
 let score = 0;
 let locationsVisited = 0;
 let lastLocation = 0;
@@ -92,55 +105,87 @@ let goldLocation = 15;
 let snakeLocation = 20;
 let gameOver = false;
 
-function check(pos) {
-    if (gameOver) return;
+// Step 1 & 2 - Create 35 images with unique ids and onclick handlers
+const Grid = document.getElementById('gameGrid');
 
-    const img = document.getElementById(ids[pos]);
-    lastLocation = pos;
+for (let i = 0; i < 35; i++) {
+    let img = document.createElement('img');
+    img.id = 'img' + i;
+    img.src = 'pottery.png';
+    img.onclick = function () { check(i); };
+    ids.push(img.id);
+    grid.appendChild(img);
+}
 
-    if (pos === goldLocation) {
-        img.src = "gold.png";
-        score += 5;
-    } else if (silverLocations.includes(pos)) {
-        img.src = "silver.png";
-        score += 3;
-    } else if (pos === snakeLocation) {
-        img.src = "snake.png";
-        score -= 3;
+// Step 12 - Define the check function
+function check(position) {
+    if (gameOver) return;  // a
+
+    let img = document.getElementById(ids[position]);  // b, c
+
+    // d - Change image based on location
+    if (position === snakeLocation) {
+        img.src = 'snake.png';
         gameOver = true;
+        score -= 3;  // j
+    } else if (position === goldLocation) {
+        img.src = 'gold.png';
+        score += 5;  // g
+    } else if (silverLocations.includes(position)) {
+        img.src = 'silver.png';
+        score += 3;  // f
     } else {
-        img.src = "pottery.png";
-        score++;
+        img.src = 'pottery.png';
+        score += 1;  // e
     }
 
+    // h - Increment locationsVisited
     locationsVisited++;
-    updateStatus();
+
+    // i - Update image text (optional feedback)
+    img.title = `Visited`;
+
+    lastLocation = position;  // k
+
+    // Update score and locations on page
+    document.getElementById('score').innerText = score;
+    document.getElementById('locationsVisited').innerText = locationsVisited;
 }
 
-function updateStatus() {
-    document.getElementById("locations").innerText = `Number of locations checked is ${locationsVisited}.`;
-    document.getElementById("score").innerText = `Score is ${score}.`;
-}
-
+// Step 13 - Define the help function
 function help() {
-    const neighbors = [lastLocation - 1, lastLocation + 1, lastLocation - 7, lastLocation + 7];
+    const row = Math.floor(lastLocation / 7);
+    const col = lastLocation % 7;
+
+    // Neighbors (wrap around if needed)
+    const neighbors = [
+        (lastLocation - 7 + 35) % 35,  // above
+        (lastLocation + 7) % 35,       // below
+        (lastLocation - 1 + 7) % 7 + (row * 7),  // left (wrap row)
+        (lastLocation + 1) % 7 + (row * 7)       // right (wrap row)
+    ];
+
     if (neighbors.some(n => silverLocations.includes(n))) {
-        document.getElementById("help").innerText = "clink";
+        document.getElementById('help').innerText = 'clink';
         return;
     }
 
-    let snakeRow = Math.floor(snakeLocation / 7);
-    let snakeCol = snakeLocation % 7;
-    let lastRow = Math.floor(lastLocation / 7);
-    let lastCol = lastLocation % 7;
+    const snakeRow = Math.floor(snakeLocation / 7);
+    const snakeCol = snakeLocation % 7;
 
-    if (Math.abs(snakeRow - lastRow) <= 1 && Math.abs(snakeCol - lastCol) <= 1) {
-        document.getElementById("help").innerText = "rattle";
-    } else {
-        document.getElementById("help").innerText = "wind";
+    if (Math.abs(row - snakeRow) <= 1 && Math.abs(col - snakeCol) <= 1) {
+        document.getElementById('help').innerText = 'rattle';
+        return;
     }
+
+    document.getElementById('help').innerText = 'wind';
 }
 
+// Step 14 - Set onclick for help
+document.getElementById('help').onclick = help;
+
 </script>
+
+
 </body>
 </html>
