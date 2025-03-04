@@ -84,37 +84,33 @@
         <div class="game-grid">
             <!-- Generate 5x7 grid with cactus images -->
             <script>
-                // Step 5 - Game variables (defined once, outside the loop)
-                const silverLocations = [2, 5, 11, 21, 32];
-                const goldLocation = 15;
-                const snakeLocation = 20;
+                // Set up the game grid
+                const grid = document.querySelector('.game-grid');
+                const ids = [];
+            
+                for (let i = 0; i < 35; i++) {
+                    let img = document.createElement('img');
+                    img.src = "cactus.jpg"; // Initial image
+                    img.id = 'img' + i;
+                    img.onclick = () => check(i); // Click handler
+                    grid.appendChild(img);
+                    ids.push(img.id);
+                }
+            
+                // Game Variables
                 let score = 0;
                 let locationsVisited = 0;
                 let lastLocation = 0;
-                let gameOver = false;
+                let silverLocations = [2, 5, 11, 21, 32];  // Silver coin locations
+                let goldLocation = 15;                      // Gold location
+                let snakeLocation = 20;                      // Snake location
+                let gameOver = false;                        // Flag to stop after snake
             
-                // Step 1 & 2 - Create grid and images
-                const grid = document.querySelector('.game-grid');
-            
-                for (let i = 0; i < 35; i++) {
-                    const cell = document.createElement('div');
-                    const img = document.createElement('img');
-            
-                    img.src = "pottery.jpg";
-                    img.alt = "pottery";
-                    img.id = 'img' + i; // Set unique id to each image
-            
-                    img.onclick = () => check(i); // Set click handler for each image
-            
-                    cell.appendChild(img);
-                    grid.appendChild(cell);
-                }
-            
-                // Step 12 - Check function to handle clicks
+                // Check function - Handles what happens when clicking a location
                 function check(position) {
                     if (gameOver) return;
             
-                    const img = document.getElementById('img' + position);
+                    let img = document.getElementById(ids[position]);
             
                     if (position === snakeLocation) {
                         img.src = 'snake.jpg';
@@ -133,30 +129,32 @@
             
                     locationsVisited++;
                     img.title = 'Visited';
-                    lastLocation = position;
+                    lastLocation = position;  // Remember the last clicked location
             
-                    // Update display
                     document.getElementById('score').innerText = score;
                     document.getElementById('locationsVisited').innerText = locationsVisited;
                 }
             
-                // Step 13 - Help function logic
+                // Help function - Logic to check neighboring cells
                 function help() {
                     const row = Math.floor(lastLocation / 7);
                     const col = lastLocation % 7;
             
+                    // Neighbors (wrap for top/bottom)
                     const neighbors = [
-                        (lastLocation - 7 + 35) % 35,
-                        (lastLocation + 7) % 35,
-                        (col === 0) ? lastLocation + 6 : lastLocation - 1,
-                        (col === 6) ? lastLocation - 6 : lastLocation + 1
+                        (lastLocation - 7 + 35) % 35,  // Above
+                        (lastLocation + 7) % 35,       // Below
+                        (col === 0) ? lastLocation + 6 : lastLocation - 1,  // Left
+                        (col === 6) ? lastLocation - 6 : lastLocation + 1   // Right
                     ];
             
+                    // Check for silver in neighbors
                     if (neighbors.some(n => silverLocations.includes(n))) {
                         document.getElementById('help').innerText = 'clink';
                         return;
                     }
             
+                    // Check proximity to snake
                     const snakeRow = Math.floor(snakeLocation / 7);
                     const snakeCol = snakeLocation % 7;
             
@@ -165,13 +163,13 @@
                         return;
                     }
             
+                    // Default case
                     document.getElementById('help').innerText = 'wind';
                 }
             
-                // Step 14 - Connect help button to help function
+                // Set the help button to call the help function
                 document.getElementById('helpButton').onclick = help;
             </script>
-            
         </div>
     </div>
     </div>
