@@ -42,6 +42,7 @@
 	<input type="text" id="inputText" placeholder="Enter item text">
 
 	<button onclick="addEnd()">Add end</button>
+	<button onclick="addFront()">Add front</button>
 	<button onclick="promote()">Promote</button>
 	<button onclick="remove()">Remove</button>
 
@@ -66,6 +67,20 @@
 			container.appendChild(newDiv);
 		}
 
+		function addFront() {
+			const input = document.getElementById("inputText").value;
+			if (input.trim() === "") {
+				alert("Please enter text to add!");
+				return;
+			}
+
+			const newDiv = document.createElement("div");
+			newDiv.className = "divlist";
+			newDiv.innerHTML = input;
+
+			const container = document.getElementById("container");
+			container.insertBefore(newDiv, container.firstChild);
+		}
 		function promote() {
 			const divListItems = document.getElementsByClassName("divlist");
 			if (divListItems.length < 2) {
@@ -85,6 +100,9 @@
 
 			container.insertBefore(itemToMove, itemBefore);
 		}
+
+
+
 		function remove() {
 			const divListItems = document.getElementsByClassName("divlist");
 			if (divListItems.length === 0) {
