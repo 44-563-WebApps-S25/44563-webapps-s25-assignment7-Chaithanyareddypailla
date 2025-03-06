@@ -68,7 +68,7 @@
 
 <body>
   <h1>Chaithanya Reddy Pailla Digs for Treasure</h1>
-  
+
     <h2>Treasure Hunt Game</h2>
 
     <div id="gameGrid"></div>
@@ -138,40 +138,47 @@
                 }
 
                 // Help function - Logic to check neighboring cells
-                function help() {
-                    const row = Math.floor(lastLocation / 7);
-                    const col = lastLocation % 7;
+               function help() {
+        if (lastLocation === -1) {
+            document.getElementById('help').innerText = "Explore first!";
+            return;
+        }
 
-                    // Neighbors (wrap for top/bottom)
-                    const neighbors = [
-                        (lastLocation - 7 + 35) % 35,  // Above
-                        (lastLocation + 7) % 35,       // Below
-                        (col === 0) ? lastLocation + 6 : lastLocation - 1,  // Left
-                        (col === 6) ? lastLocation - 6 : lastLocation + 1   // Right
-                    ];
+        const row = Math.floor(lastLocation / 7);
+        const col = lastLocation % 7;
 
-                    // Check for silver in neighbors
-                    if (neighbors.some(n => silverLocations.includes(n))) {
-                        document.getElementById('help').innerText = 'clink';
-                        return;
-                    }
+        // Find 4 orthogonal neighbors (with wrap-around if needed)
+        const neighbors = [
+            (lastLocation - 7 + 35) % 35,  // Up
+            (lastLocation + 7) % 35,       // Down
+            (col === 0) ? lastLocation + 6 : lastLocation - 1, // Left
+            (col === 6) ? lastLocation - 6 : lastLocation + 1  // Right
+        ];
 
-                    // Check proximity to snake
-                    const snakeRow = Math.floor(snakeLocation / 7);
-                    const snakeCol = snakeLocation % 7;
+        // Check if any neighbor has silver
+        if (neighbors.some(n => silverLocations.includes(n))) {
+            document.getElementById('help').innerText = "clink";
+            return;
+        }
 
-                    if (Math.abs(row - snakeRow) <= 1 && Math.abs(col - snakeCol) <= 1) {
-                        document.getElementById('help').innerText = 'rattle';
-                        return;
-                    }
+        // Check proximity to snake (directly adjacent - no wrap-around here)
+        const snakeRow = Math.floor(snakeLocation / 7);
+        const snakeCol = snakeLocation % 7;
 
-                    // Default case
-                    document.getElementById('help').innerText = 'wind';
-                }
-            </script>
-        </div>
-    </div>
-    </div>
+        const rowDiff = Math.abs(row - snakeRow);
+        const colDiff = Math.abs(col - snakeCol);
+
+        if (rowDiff <= 1 && colDiff <= 1) {
+            document.getElementById('help').innerText = "rattle";
+            return;
+        }
+
+        // Default fallback if none of the above apply
+        document.getElementById('help').innerText = "wind";
+    }
+
+    document.getElementById('helpButton').onclick = help;
+</script>
+
 </body>
-
-</html>       
+</html>
